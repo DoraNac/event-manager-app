@@ -1,7 +1,7 @@
 import { useState } from "react";
 import GoogleMapEventCreator from "./GoogleMapEventCreator";
 
-function CreateNewEvent() {
+function NewEventTest() {
     const [address, setAddress] = useState({
         streetNumber: '',
         streetName: '',
@@ -104,4 +104,4 @@ function CreateNewEvent() {
     );
 }
 
-export default CreateNewEvent;
+export default NewEventTest;

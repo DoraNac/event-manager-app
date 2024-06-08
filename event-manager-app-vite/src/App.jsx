@@ -1,13 +1,15 @@
-import CreateNewEvent from "./components/CreateNewEvent"
+import NewEventTest from "./components/NewEventTest"
 import GoogleMapHardcoded from "./components/GoogleMapHardcoded";
+import NewEvent from "./components/NewEvent";
 
 function App() {
   
 
   return (
     <>
-    <CreateNewEvent/> 
+    <NewEventTest/> 
     {/* <GoogleMapHardcoded/> */}
+    {/* <NewEvent/> */}
     </>
   )
 }
