@@ -1,12 +1,13 @@
-import { useState } from 'react'
-
+import CreateNewEvent from "./components/CreateNewEvent"
+import GoogleMapHardcoded from "./components/GoogleMapHardcoded";
 
 function App() {
   
 
   return (
     <>
-      <h1>Event App</h1>
+    <CreateNewEvent/> 
+    {/* <GoogleMapHardcoded/> */}
     </>
   )
 }
