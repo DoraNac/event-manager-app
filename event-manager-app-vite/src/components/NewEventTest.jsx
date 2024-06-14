@@ -1,5 +1,8 @@
 import { useState } from "react";
 import GoogleMapEventCreator from "./GoogleMapEventCreator";
+import InteractiveGoogleMap from "./InteractiveGoogleMap";
+import MapDirections from "./MapDirections";
+
 
 function NewEventTest() {
     const [address, setAddress] = useState({
@@ -24,7 +27,7 @@ function NewEventTest() {
     // get the coordinates of the address send by the event creator
     const getCoordinates = async (e) => {
         e.preventDefault();
-        const apiKey = 'AIzaSyD8xjTg1FBQK9nkAFMESlQmEkcUqKYyrn8';
+        const apiKey =  import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
         const fullAddress = `${address.streetNumber} ${address.streetName}, ${address.city}, ${address.zipCode}, ${address.country}`;
         const encodedAddress = encodeURIComponent(fullAddress);
         // console.log(encodedAddress);
@@ -36,7 +39,7 @@ function NewEventTest() {
             if (data.results.length > 0) {
                 const location = data.results[0].geometry.location;
                 setCoordinates({ lat: location.lat, lng: location.lng });
-                console.log(coordinates);
+                // console.log(coordinates);
             } else {
                 console.error('No coordinates found for this address.');
             }
@@ -47,10 +50,10 @@ function NewEventTest() {
 
     // onBlur or onChange ?
     return (
-        <div className="flex gap-5">
+        <div className="flex flex-wrap gap-5">
             <form method="post" className="event-creator" data-theme="cyberpunk" onSubmit={getCoordinates}>
             <h1 className="self-center">Create Event</h1>
-            <div className="line1">
+            <div className="line1 flex gap-5 align-between">
                 <label>Name:
                     <input type="text" />
                 </label>
@@ -94,12 +97,13 @@ function NewEventTest() {
             <label>Add an image:
                 <input type="file" accept="image/*" />
             </label>
-            <button className="btn btn-primary w-20" type="submit"
-            onSubmit={getCoordinates}>
+            <button className="btn btn-primary w-20" type="submit">
                 Submit
             </button>
         </form>
-         <GoogleMapEventCreator lat={coordinates.lat} lng={coordinates.lng} />
+        {/* <GoogleMapEventCreator lat={coordinates.lat} lng={coordinates.lng} address={address} /> */}
+        <InteractiveGoogleMap lat={coordinates.lat} lng={coordinates.lng} address={address} />
+        <MapDirections coordinates={coordinates} />
         </div>
     );
 }

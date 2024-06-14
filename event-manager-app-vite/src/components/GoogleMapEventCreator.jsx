@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
-function GoogleMapEventCreator({ lat, lng }) {
-    const [zoomLevel, setZoomLevel] = useState(13); // Niveau de zoom initial
-
+function GoogleMapEventCreator({ lat, lng, address }) {
+    const [zoomLevel, setZoomLevel] = useState(13); //Adjust Initial Zoom Level ?
     const handleZoomChange = (e) => {
         setZoomLevel(parseInt(e.target.value));
     };
 
-    const apiKey = 'AIzaSyD8xjTg1FBQK9nkAFMESlQmEkcUqKYyrn8'; 
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
     const mapImageUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoomLevel}&size=600x300&markers=color:red%7C${lat},${lng}&key=${apiKey}`;
 
     return (
@@ -17,6 +16,10 @@ function GoogleMapEventCreator({ lat, lng }) {
             <div>
                 <img src={mapImageUrl} alt="Map" />
             </div>
+            <p>{address.streetName} {address.streetNumber} 
+                <br />
+                {address.city} {address.zipCode} {address.country}
+            </p>
         </div>
     );
 }

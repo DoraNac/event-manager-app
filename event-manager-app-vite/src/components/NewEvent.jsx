@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MapDirections from "./MapDirections";
 import GoogleMapEventCreator from "./GoogleMapEventCreator";
 
 function NewEvent() {
@@ -31,7 +32,7 @@ function NewEvent() {
     // get the coordinates of the address send by the event creator
     const getCoordinates = async (e) => {
         e.preventDefault();
-        const apiKey = 'AIzaSyD8xjTg1FBQK9nkAFMESlQmEkcUqKYyrn8';
+        const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
         const fullAddress = `${address.streetNumber} ${address.streetName}, ${address.city}, ${address.zipCode}, ${address.country}`;
         const encodedAddress = encodeURIComponent(fullAddress);
         // console.log(encodedAddress);
@@ -88,7 +89,8 @@ function NewEvent() {
     // onBlur or onChange ?
     return (
         <div className="flex gap-5">
-            <form method="post" className="event-creator" data-theme="cyberpunk" >
+            <form method="post" className="event-creator" data-theme="cyberpunk"
+            onSubmit={handleSubmit}>
             <h1 className="self-center">Create Event</h1>
             <div className="line1">
                 <label>Name:
@@ -146,13 +148,11 @@ function NewEvent() {
             <label>Add an image:
                 <input type="file" accept="image/*" />
             </label>
-            <button className="btn btn-primary w-20" type="submit"
-            onSubmit={handleSubmit}>
+            <button className="btn btn-primary w-20" type="submit">
                 Submit
             </button>
         </form>
         <GoogleMapEventCreator lat={coordinates.lat} lng={coordinates.lng} />
-        
         </div>
     );
 }
